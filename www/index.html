@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CineMax</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#101010;color:white;font-family:Arial}
+header{padding:20px;background:#181818}
+h1{color:#e50914;margin:0}
+main{padding:20px}
+video{width:100%;margin-top:20px;background:black}
+</style>
+</head>
+<body>
+<header>
+<h1>CineMax</h1>
+<p>आपकी अपनी वीडियो लाइब्रेरी</p>
+</header>
+<main>
+<h2>अपना वीडियो चलाएँ</h2>
+<input type="file" id="file" accept="video/*">
+<video id="player" controls playsinline></video>
+<p id="status">अभी कोई वीडियो नहीं चुना गया।</p>
+</main>
+<script>
+const file=document.getElementById('file');
+const player=document.getElementById('player');
+const status=document.getElementById('status');
+let oldURL=null;
+file.addEventListener('change',()=>{
+ const video=file.files[0];
+ if(!video)return;
+ if(oldURL)URL.revokeObjectURL(oldURL);
+ oldURL=URL.createObjectURL(video);
+ player.src=oldURL;
+ status.textContent="चुना गया: "+video.name;
+});
+</script>
+</body>
+</html>
